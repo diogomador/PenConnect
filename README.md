@@ -6,7 +6,7 @@
 - FastAPI
 - Uvicorn
 
-<b>Descrição:</b> Implementação de uma plataforma digital em que escritores, em especial os amdores, sejam capazes de compartilhar suas histórias com outras pessoas. <br>
+<b>Descrição:</b> Implementação de uma plataforma digital em que escritores, em especial os amadores, sejam capazes de compartilhar suas histórias com outras pessoas. <br>
 <b>Objetivo: </b> Facilitar a interação entre escritores e leitores.
 
 ## 2. Descrição Detalhada do Projeto
