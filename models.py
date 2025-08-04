@@ -1,23 +1,26 @@
-from pydantic import BaseModel, Field
+from sqlmodel import SQLModel, Field
 from typing import Optional
 
-class Usuario(BaseModel):
+class Usuario(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
     username: str
     nome: str
     bio: Optional[str] = None
 
-class Obra(BaseModel):
-    id: int
+class Obra(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
     titulo: str
     conteudo: str
     autor: str  # username do autor
 
-class Comentario(BaseModel):
+class Comentario(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
     obra_id: int
     autor: str  # username
     texto: str
 
-class Avaliacao(BaseModel):
+class Avaliacao(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
     obra_id: int
     avaliador: str  # username
-    nota: int = Field(..., ge=0, le=10)
+    nota: int = Field(ge=0, le=10)
