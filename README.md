@@ -7,7 +7,6 @@
 - Uvicorn
 
 <b>Descrição:</b> Implementação de uma plataforma digital em que escritores, em especial os amadores, sejam capazes de compartilhar suas histórias com outras pessoas. <br>
-<b>Objetivo: </b> Facilitar a interação entre escritores e leitores.
 
 ## 2. Descrição Detalhada do Projeto
 ### O que é projeto?
@@ -26,12 +25,15 @@ PenConnect/
 ├── database/schema.sql # Script SQL para criação das tabelas
 ├── init_db.py         # Script para inicializar o banco de dados
 ```
-## 3. Etapas de Entrega (Cronograma Detalhado)
-### Etapa 1: 08/06/25
-### Etapa 2: 25/06/25
-### Etapa 3: 16/07/25
-### Etapa 4: 25/07/25
-### Etapa 5: 27/07/25
+## Sobre o projeto
+### Qual o objetivo principal?
+Facilitar a interação entre escritores e leitores.
+### Para quem ele é voltado?
+O projeto foca em entusiastas do mundo literário, dando atenção principalmente para escritores iniciantes que buscam se estabelecer nesse mundo. Esse tipo de grupo costuma valorizar elementos que remetam aos livros, como cores mais terrosas e fontes serifadas. Ainda assim, não recusam um estilo mais moderno e minimalista.
+### Quais elementos irão compor a identidade visual?
+- <b>Cores terrosas:</b> dialoga com a preferência de leitores por livros com fundo amarelado, mais confortável para leitura.
+- <b>Fontes serifadas:</b> estilo de tipografia já estabelecido no mundo literário, além de ser o mais confortável para leitura de textos grandes.
+- <b> Caneta tinteiro:</b> faz referência ao nome da plataforma (pen).
 
 ## 4. Como rodar o projeto
 
