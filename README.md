@@ -39,7 +39,7 @@ O projeto foca em entusiastas do mundo literário, dando atenção principalment
 
 1. Instale as dependências:
    ```
-   pip install fastapi uvicorn sqlmodel
+   pip install -r requirements.txt
    ```
 
 2. Inicialize o banco de dados:
