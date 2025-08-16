@@ -25,7 +25,7 @@ PenConnect/
 ├── database/schema.sql # Script SQL para criação das tabelas
 ├── init_db.py         # Script para inicializar o banco de dados
 ```
-## Sobre o projeto
+## 3. Sobre o projeto
 ### Qual o objetivo principal?
 Facilitar a interação entre escritores e leitores.
 ### Para quem ele é voltado?
