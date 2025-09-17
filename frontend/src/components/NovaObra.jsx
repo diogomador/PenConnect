@@ -1,41 +1,54 @@
 import { useState } from "react";
 import api from "./api";
+import { useNavigate } from "react-router-dom";
 
-function NovaObra() {
+export default function NovaObra() {
   const [titulo, setTitulo] = useState("");
-  const [conteudo, setConteudo] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [autorId, setAutorId] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const criarObra = async (e) => {
     e.preventDefault();
     try {
       await api.post("/obras/", {
         titulo,
-        conteudo,
-        autor_id: 1, // depois vai ser dinâmico pelo login
+        descricao,
+        autor_id: Number(autorId),
       });
-      alert("Obra criada com sucesso!");
-    } catch (error) {
-      console.error(error);
-      alert("Erro ao criar obra");
+      navigate("/obras"); // volta para lista de obras
+    } catch (err) {
+      console.error("Erro ao criar obra", err);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Título"
-        value={titulo}
-        onChange={(e) => setTitulo(e.target.value)}
-      />
-      <textarea
-        placeholder="Conteúdo"
-        value={conteudo}
-        onChange={(e) => setConteudo(e.target.value)}
-      />
-      <button type="submit">Publicar</button>
-    </form>
+    <div>
+      <h2>➕ Nova Obra</h2>
+      <form onSubmit={criarObra}>
+        <input
+          type="text"
+          placeholder="Título"
+          value={titulo}
+          onChange={(e) => setTitulo(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Descrição"
+          value={descricao}
+          onChange={(e) => setDescricao(e.target.value)}
+          required
+        />
+        <input
+          type="number"
+          placeholder="ID do Autor"
+          value={autorId}
+          onChange={(e) => setAutorId(e.target.value)}
+          required
+        />
+        <button type="submit">Salvar</button>
+      </form>
+    </div>
   );
 }
-
-export default NovaObra;

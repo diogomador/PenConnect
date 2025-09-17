@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends
 from typing import List
 from sqlmodel import SQLModel, create_engine, Session, select
-from backend.models import Usuario, Obra, Comentario, Avaliacao
+from models import Usuario, Obra, Comentario, Avaliacao
 from fastapi.middleware.cors import CORSMiddleware
 
 sqlite_file_name = "database/penconnect.db"
@@ -23,7 +23,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8001"],  # frontend React
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
