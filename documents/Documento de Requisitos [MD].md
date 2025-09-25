@@ -75,13 +75,17 @@
 
 # **Diagrama de Atividades**
 **Publicar Obras**
+
 ![Publicar Obras](diagramas/atv01.png)
 
 **Ver Obras**
+
 ![Publicar Obras](diagramas/atv04.png)
 
 **Avaliar Obras**
+
 ![Avaliar Obras](diagramas/atv03.png)
 
 **Comentar em Obra**
+
 ![Comentar em Obra](diagramas/atv02.png)
