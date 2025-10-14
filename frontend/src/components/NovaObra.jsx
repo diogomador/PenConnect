@@ -1,54 +1,53 @@
 import { useState } from "react";
 import api from "./api";
-import { useNavigate } from "react-router-dom";
 
 export default function NovaObra() {
   const [titulo, setTitulo] = useState("");
-  const [descricao, setDescricao] = useState("");
-  const [autorId, setAutorId] = useState("");
-  const navigate = useNavigate();
+  const [conteudo, setConteudo] = useState("");
+  const [autor, setAutor] = useState(""); // futuramente isso vem do login
 
-  const criarObra = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await api.post("/obras/", {
         titulo,
-        descricao,
-        autor_id: Number(autorId),
+        conteudo,
+        autor
       });
-      navigate("/obras"); // volta para lista de obras
+      alert("Obra publicada com sucesso!");
+      setTitulo("");
+      setConteudo("");
+      setAutor("");
     } catch (err) {
-      console.error("Erro ao criar obra", err);
+      console.error("Erro ao criar obra:", err);
+      alert("Erro ao criar obra. Verifique os campos e tente novamente.");
     }
   };
 
   return (
-    <div>
-      <h2>➕ Nova Obra</h2>
-      <form onSubmit={criarObra}>
-        <input
-          type="text"
-          placeholder="Título"
-          value={titulo}
-          onChange={(e) => setTitulo(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Descrição"
-          value={descricao}
-          onChange={(e) => setDescricao(e.target.value)}
-          required
-        />
-        <input
-          type="number"
-          placeholder="ID do Autor"
-          value={autorId}
-          onChange={(e) => setAutorId(e.target.value)}
-          required
-        />
-        <button type="submit">Salvar</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <h2>Nova Obra</h2>
+      <input
+        type="text"
+        placeholder="Título"
+        value={titulo}
+        onChange={(e) => setTitulo(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="Autor"
+        value={autor}
+        onChange={(e) => setAutor(e.target.value)}
+        required
+      />
+      <textarea
+        placeholder="Conteúdo"
+        value={conteudo}
+        onChange={(e) => setConteudo(e.target.value)}
+        required
+      />
+      <button type="submit">Publicar</button>
+    </form>
   );
 }
