@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Obras from "./Obras";
-import NovaObra from "./NovaObra";
-import Usuarios from "./Usuarios";
+import Obras from "./pages/Obras";
+import Usuarios from "./pages/Usuarios";
+import Home from "./pages/Home";
 
 export default function App() {
   return (
@@ -14,9 +14,8 @@ export default function App() {
         </nav>
 
         <Routes>
-          <Route path="/" element={<h1>Bem-vindo ao PenConnect ✒️</h1>} />
+          <Route path="/" element={<Home />} />
           <Route path="/obras" element={<Obras />} />
-          <Route path="/obras/nova" element={<NovaObra />} />
           <Route path="/usuarios" element={<Usuarios />} />
         </Routes>
       </div>
