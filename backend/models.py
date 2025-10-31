@@ -5,7 +5,9 @@ class Usuario(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     username: str
     nome: str
+    senha: str
     bio: Optional[str] = None
+
 
 class Obra(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
