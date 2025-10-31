@@ -1,0 +1,67 @@
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  background: #f5ecd8;
+}
+
+/* HERO */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 80px;
+}
+
+.hero-text h2 {
+  font-size: 40px;
+  color: #5b3716;
+}
+
+.hero-text p {
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.hero-img {
+  width: 350px;
+}
+
+/* HISTÓRIAS EM ALTA */
+.stories {
+  padding: 40px 80px;
+}
+
+.stories h3 {
+  font-size: 28px;
+  border-bottom: 2px solid #000;
+  padding-bottom: 6px;
+}
+
+.stories-area {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.cards {
+  display: flex;
+  gap: 25px;
+}
+
+.card {
+  width: 150px;
+  height: 150px;
+  background: #92d6e6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.side-text {
+  width: 350px;
+  font-size: 19px;
+  text-align: center;
+  color: #5b3716;
+}
