@@ -4,7 +4,9 @@ import "./Header.css";
 export default function Header() {
   return (
     <header className="header">
-      <h1 className="logo">PenConnect</h1>
+        <h1 className="logo">
+            <Link to="/" className="logo-link">PenConnect</Link>
+        </h1>
       
       <nav className="menu">
         <Link to="/escrever" className="menu-btn">Escrever</Link>
