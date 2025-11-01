@@ -75,5 +75,7 @@ Com a grande quantidade de projetos estudantis de grande relevância e que, cons
 
 ## Fluxo de Login/Logout
 
-A API ainda não está finalizada. Dentre as funcionalidades que faltam ser definitivamente implementadas, está a de Login e Logout do sistema. Por isso, tem-se, atualmente, apenas um esboço de como irá funcionar. Segue abaixo:
+A API ainda não está finalizada. Dentre as funcionalidades que faltam ser definitivamente implementadas, está a de Login e Logout do sistema. Por isso, tem-se, atualmente, apenas um esboço de como irá funcionar. Segue abaixo.
+Login: usuário insere suas credenciais utilizadas durante a criação da conta (username, email... + senha) -> API busca os usuários cadastrados na plataforma -> Caso a compatibilidade entre as credenciais inseridas e cadastradas seja válida, inicia-se uma sessão com o usuário em específico.
+Logout: usuário clica num botão para desconectar a sua conta -> É encerrada a sessão do usuário em questão.
 
