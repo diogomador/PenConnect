@@ -71,12 +71,7 @@ Há, ainda, a necessidade de criar um rota específica para a obtenção de usu�
 
 ## Prazo estimado de conclusão
 
-**Rota aaa**  
-**Input:**  
-**Output:**
+Com a grande quantidade de projetos estudantis de grande relevância e que, consequentemente, exigiram nossa atenção ao extremo - aliada a chegada iminente do Exame Nacional do Ensino Médio (ENEM) - ocorreu um atraso considerável no que diz respeito ao desenvolvimento do sistema. Por isso, norteando-se a partir do que foi citado anteriormente, espera-se concluir o back-end do projeto até o dia 28/11/25.
 
 ## Fluxo de Login/Logout
 
-**Listar usuários**  
-**Input:**  
-**Output:**
