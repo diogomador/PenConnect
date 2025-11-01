@@ -15,7 +15,9 @@
 
 **Listar usuários**  
 **Input: -**
+
 **Output:**
+```
 [
   {
     "id": 0,
@@ -25,9 +27,11 @@
     "bio": "string"
   }
 ]
+```
 
 **Criar usuário**  
 **Input:**
+```
 {
   "id": 0,
   "username": "string",
@@ -35,8 +39,9 @@
   "senha": "string",
   "bio": "string"
 }
-
+```
 **Output:** 
+```
 {
   "id": 0,
   "username": "string",
@@ -44,10 +49,13 @@
   "senha": "string",
   "bio": "string"
 }
+```
 
 **Listar obras**  
-**Input: -**   
+**Input: -**
+
 **Output:**
+```
 [
   {
     "id": 0,
@@ -56,38 +64,46 @@
     "autor": "string"
   }
 ]
+```
 
 **Criar obra**  
 **Input:**
+```
 {
   "id": 0,
   "titulo": "string",
   "conteudo": "string",
   "autor": "string"
 }
+```
 
 **Output:**
+```
 {
   "id": 0,
   "titulo": "string",
   "conteudo": "string",
   "autor": "string"
 }
+```
 
 **Obter obra**  
 **Input:**
-obra_id
+```obra_id```
 
 **Output:**
+```
 {
   "id": 0,
   "titulo": "string",
   "conteudo": "string",
   "autor": "string"
 }
+```
 
 **Atualizar obra**  
 **Input:**
+```
 obra_id
 {
   "id": 0,
@@ -95,31 +111,37 @@ obra_id
   "conteudo": "string",
   "autor": "string"
 }
-
+```
 **Output:**
+```
 {
   "id": 0,
   "titulo": "string",
   "conteudo": "string",
   "autor": "string"
 }
+```
 
 **Deletar obra**  
 **Input:**
-obra_id
+```obra_id```
 
 **Output:**
+```
 {
   "id": 0,
   "titulo": "string",
   "conteudo": "string",
   "autor": "string"
 }
+```
 
 **Listar comentários**  
 **Input:**
-obra_id
+```obra_id```
+
 **Output:**
+```
 [
   {
     "id": 0,
@@ -128,41 +150,49 @@ obra_id
     "texto": "string"
   }
 ]
+```
 
 **Adicionar comentário**  
 **Input:**
+```
 {
   "id": 0,
   "obra_id": 0,
   "autor": "string",
   "texto": "string"
 }
+```
 
 **Output:**
+```
 {
   "id": 0,
   "obra_id": 0,
   "autor": "string",
   "texto": "string"
 }
+```
 
 **Deletar comentário**  
 **Input:**
-comentario_id
+```comentario_id```
 
 **Output:**
+```
 {
   "id": 0,
   "obra_id": 0,
   "autor": "string",
   "texto": "string"
 }
+```
 
 **Listar avaliações**  
 **Input:**
-obra_id
+```obra_id```
 
 **Output:**
+```
 [
   {
     "id": 0,
@@ -170,36 +200,43 @@ obra_id
     "avaliador": "string",
     "nota": 10
   }
-] 
+]
+```
 
 **Adicionar avaliação**  
 **Input:**
+```
 {
   "id": 0,
   "obra_id": 0,
   "avaliador": "string",
   "nota": 10
 }
+```
 
 **Output:**
+```
 {
   "id": 0,
   "obra_id": 0,
   "avaliador": "string",
   "nota": 10
 }
+```
 
 **Deletar avaliação**  
 **Input:**
-avaliacao_id
+```avaliacao_id```
 
 **Output:**
+```
 {
   "id": 0,
   "obra_id": 0,
   "avaliador": "string",
   "nota": 10
 }
+```
 
 ## O que falta ser implementado
 
