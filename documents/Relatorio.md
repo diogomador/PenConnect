@@ -75,3 +75,5 @@ Com a grande quantidade de projetos estudantis de grande relevância e que, cons
 
 ## Fluxo de Login/Logout
 
+A API ainda não está finalizada. Dentre as funcionalidades que faltam ser definitivamente implementadas, está a de Login e Logout do sistema. Por isso, tem-se, atualmente, apenas um esboço de como irá funcionar. Segue abaixo:
+
