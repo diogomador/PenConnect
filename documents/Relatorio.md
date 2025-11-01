@@ -67,9 +67,7 @@
 
 ## O que falta ser implementado
 
-**Rota aaa**  
-**Input:**  
-**Output:**
+Há, ainda, a necessidade de criar um rota específica para a obtenção de usuários, a fim  de auxiliar o acesso da plataforma por meio de uma conta criada anteriormente. Também falta a implementação de rotas voltadas ao sistema de comunidades e filtragem de obras de acordo com as preferências de um usuário
 
 ## Prazo estimado de conclusão
 
