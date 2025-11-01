@@ -35,6 +35,7 @@
   "senha": "string",
   "bio": "string"
 }
+
 **Output:** 
 {
   "id": 0,
@@ -64,6 +65,7 @@
   "conteudo": "string",
   "autor": "string"
 }
+
 **Output:**
 {
   "id": 0,
@@ -93,6 +95,7 @@ obra_id
   "conteudo": "string",
   "autor": "string"
 }
+
 **Output:**
 {
   "id": 0,
@@ -104,6 +107,7 @@ obra_id
 **Deletar obra**  
 **Input:**
 obra_id
+
 **Output:**
 {
   "id": 0,
@@ -133,6 +137,7 @@ obra_id
   "autor": "string",
   "texto": "string"
 }
+
 **Output:**
 {
   "id": 0,
@@ -144,6 +149,7 @@ obra_id
 **Deletar comentário**  
 **Input:**
 comentario_id
+
 **Output:**
 {
   "id": 0,
@@ -155,6 +161,7 @@ comentario_id
 **Listar avaliações**  
 **Input:**
 obra_id
+
 **Output:**
 [
   {
@@ -173,6 +180,7 @@ obra_id
   "avaliador": "string",
   "nota": 10
 }
+
 **Output:**
 {
   "id": 0,
@@ -184,6 +192,7 @@ obra_id
 **Deletar avaliação**  
 **Input:**
 avaliacao_id
+
 **Output:**
 {
   "id": 0,
