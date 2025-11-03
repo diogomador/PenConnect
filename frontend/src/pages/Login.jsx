@@ -1,7 +1,9 @@
 import "./Cadastro.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Login() {
+  const { setUsuario } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
@@ -22,15 +24,14 @@ export default function Login() {
         return;
       }
 
-      alert("Login realizado com sucesso!");
-
-      // Salva usuário no navegador
+      // salva globalmente o usuário
+      setUsuario(data);
       localStorage.setItem("usuario", JSON.stringify(data.usuario));
 
-      // Redireciona para Home
+      alert("Login realizado com sucesso!");
       window.location.href = "/";
     } catch (error) {
-      console.log(error);
+      console.error(error);
       alert("Erro ao conectar ao servidor.");
     }
   }
@@ -40,7 +41,7 @@ export default function Login() {
       <h2>Login</h2>
       <form className="form-cadastro" onSubmit={handleLogin}>
         
-        <label htmlFor="email" className="label-cadastro">Email:</label>
+        <label className="label-cadastro">Email:</label>
         <input
           className="input-cadastro"
           type="email"
@@ -49,7 +50,7 @@ export default function Login() {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <label htmlFor="senha" className="label-cadastro">Senha:</label>
+        <label className="label-cadastro">Senha:</label>
         <input
           className="input-cadastro"
           type="password"

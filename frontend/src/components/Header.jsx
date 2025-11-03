@@ -1,17 +1,28 @@
 import { Link } from "react-router-dom";
-import "./Header.css";
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
+import './Header.css';
 
 export default function Header() {
+  const { usuario, logout } = useContext(AuthContext);
+
   return (
     <header className="header">
-        <h1 className="logo">
-            <Link to="/" className="logo-link">PenConnect</Link>
-        </h1>
-      
+      <Link to="/" className="logo">PenConnect</Link>
+
       <nav className="menu">
-        <Link to="/escrever" className="menu-btn">Escrever</Link>
-        <Link to="/cadastro" className="menu-btn">Criar Conta</Link>
-        <Link to="/login" className="menu-btn">Login</Link>
+        {usuario ? (
+          <>
+            <span className="user-name">Olá, {usuario.nome}</span>
+            <Link to="/escrever" className="menu-btn">Escrever</Link>
+            <button className="menu-btn" onClick={logout}>Sair</button>
+          </>
+        ) : (
+          <>
+            <Link to="/cadastro" className="menu-btn">Criar Conta</Link>
+            <Link to="/login" className="menu-btn">Login</Link>
+          </>
+        )}
       </nav>
     </header>
   );

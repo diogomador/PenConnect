@@ -10,14 +10,11 @@
 .logo {
     font-size: 28px;
     font-weight: bold;
+    text-decoration: none;
+    color: inherit; /* mantém a mesma cor do h1 */
 }
 
-.logo-link {
-  text-decoration: none;
-  color: inherit; /* mantém a mesma cor do h1 */
-}
-
-.logo-link:hover {
+.logo:hover {
   opacity: 0.8;
 }
 

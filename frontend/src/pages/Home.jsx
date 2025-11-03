@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import './Home.css';
 import maquinaDeEscrever from '../assets/img/maquina-de-escrever.png';
+
 export default function Home() {
+  const { usuario } = useContext(AuthContext);
+
   return (
     <div className="home-container">
 
@@ -13,7 +18,7 @@ export default function Home() {
         </div>
 
         <img 
-          src= {maquinaDeEscrever}
+          src={maquinaDeEscrever}
           alt="Escrita"
           className="hero-img"
         />
@@ -30,12 +35,21 @@ export default function Home() {
             <div className="card">Exemplo 3</div>
           </div>
 
-          <p className="side-text">
-            Para uma melhor experiência<br/>
-            crie uma conta e deixe sua<br/>
-            criatividade fluir livremente em<br/>
-            nosso espaço de escrita!
-          </p>
+          {usuario ? (
+            <p className="side-text">
+              Continue sua jornada literária,<br />
+              {usuario.nome}!<br /><br />
+              Explore novas histórias e comece<br />
+              a escrever a sua própria!
+            </p>
+          ) : (
+            <p className="side-text">
+              Para uma melhor experiência<br />
+              crie uma conta e deixe sua<br />
+              criatividade fluir livremente em<br />
+              nosso espaço de escrita!
+            </p>
+          )}
         </div>
       </section>
     </div>
