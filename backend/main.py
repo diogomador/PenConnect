@@ -1,8 +1,12 @@
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Body
 from typing import List
 from sqlmodel import SQLModel, create_engine, Session, select
 from models import Usuario, Obra, Comentario, Avaliacao
 from fastapi.middleware.cors import CORSMiddleware
+import os
+
+# Criar pasta do banco se não existir
+os.makedirs("database", exist_ok=True)
 
 sqlite_file_name = "database/penconnect.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
@@ -19,7 +23,8 @@ def get_session():
 
 app = FastAPI()
 
-# TODO: Ajustar o CORS para produção
+# Criar banco ao iniciar
+create_db_and_tables()
 
 app.add_middleware(
     CORSMiddleware,
@@ -29,11 +34,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# USUÁRIOS
+# ------------------ USUÁRIOS ------------------
+
 @app.get("/usuarios/", response_model=List[Usuario])
 def listar_usuarios(session: Session = Depends(get_session)):
-    usuarios = session.exec(select(Usuario)).all()
-    return usuarios
+    return session.exec(select(Usuario)).all()
 
 @app.post("/usuarios/", response_model=Usuario)
 def criar_usuario(usuario: Usuario, session: Session = Depends(get_session)):
@@ -42,11 +47,29 @@ def criar_usuario(usuario: Usuario, session: Session = Depends(get_session)):
     session.refresh(usuario)
     return usuario
 
-# OBRAS
+# ------------------ LOGIN ------------------
+
+@app.post("/login/")
+def login(data: dict = Body(...), session: Session = Depends(get_session)):
+    email = data.get("email")
+    senha = data.get("senha")
+
+    statement = select(Usuario).where(
+        Usuario.email == email,
+        Usuario.senha == senha
+    )
+    usuario = session.exec(statement).first()
+
+    if not usuario:
+        raise HTTPException(status_code=401, detail="Email ou senha inválidos")
+
+    return {"message": "Login efetuado com sucesso!", "usuario": usuario}
+
+# ------------------ OBRAS ------------------
+
 @app.get("/obras/", response_model=List[Obra])
 def listar_obras(session: Session = Depends(get_session)):
-    obras = session.exec(select(Obra)).all()
-    return obras
+    return session.exec(select(Obra)).all()
 
 @app.post("/obras/", response_model=Obra)
 def criar_obra(obra: Obra, session: Session = Depends(get_session)):
@@ -82,11 +105,11 @@ def deletar_obra(obra_id: int, session: Session = Depends(get_session)):
     session.commit()
     return db_obra
 
-# COMENTÁRIOS
+# ------------------ COMENTÁRIOS ------------------
+
 @app.get("/obras/{obra_id}/comentarios/", response_model=List[Comentario])
 def listar_comentarios(obra_id: int, session: Session = Depends(get_session)):
-    comentarios = session.exec(select(Comentario).where(Comentario.obra_id == obra_id)).all()
-    return comentarios
+    return session.exec(select(Comentario).where(Comentario.obra_id == obra_id)).all()
 
 @app.post("/comentarios/", response_model=Comentario)
 def adicionar_comentario(comentario: Comentario, session: Session = Depends(get_session)):
@@ -104,11 +127,11 @@ def deletar_comentario(comentario_id: int, session: Session = Depends(get_sessio
     session.commit()
     return db_comentario
 
-# AVALIAÇÕES
+# ------------------ AVALIAÇÕES ------------------
+
 @app.get("/obras/{obra_id}/avaliacoes/", response_model=List[Avaliacao])
 def listar_avaliacoes(obra_id: int, session: Session = Depends(get_session)):
-    avaliacoes = session.exec(select(Avaliacao).where(Avaliacao.obra_id == obra_id)).all()
-    return avaliacoes
+    return session.exec(select(Avaliacao).where(Avaliacao.obra_id == obra_id)).all()
 
 @app.post("/avaliacoes/", response_model=Avaliacao)
 def adicionar_avaliacao(avaliacao: Avaliacao, session: Session = Depends(get_session)):

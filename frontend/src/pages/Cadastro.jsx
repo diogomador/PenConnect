@@ -11,7 +11,7 @@ export default function Cadastro() {
 
     const dados = {
       nome,
-      username: email, // se sua API usa username no lugar de email
+      email,
       senha
     };
 
