@@ -42,14 +42,14 @@ O projeto foca em entusiastas do mundo literário, dando atenção principalment
    pip install -r requirements.txt
    ```
 
-2. Inicialize o banco de dados:
-   ```
-   python init_db.py
-   ```
-
-3. Execute a API:
+2. Execute a API:
    ```
    uvicorn main:app --reload
+   ```
+
+3. Execute o Frontend:
+   ```
+   npm run dev
    ```
 
 Acesse a documentação interativa em [http://localhost:8000/docs](http:localhost:8000/docs)
