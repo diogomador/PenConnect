@@ -4,6 +4,9 @@
 
 ## Uma plataforma digital em que escritores, em especial os amadores, sejam capazes de compartilhar suas histórias com outras pessoas.
 
+# **Link para repositório:**
+ https://github.com/diogomador/PenConnect.git
+
 # **Integrantes:**
 
 * Ana Clara  
