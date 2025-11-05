@@ -1,0 +1,40 @@
+.escrever-container {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+textarea.textarea-escrita {
+  width: 100%;
+  height: 400px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+button.btn-publicar {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 150px;
+}
+
+button.btn-publicar:hover {
+    background-color: #45a049;
+}
+
+.preview-area {
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  min-height: 200px;
+  border: 1px solid #ccc;
+  font-size: 18px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
