@@ -1,0 +1,53 @@
+.feed-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.feed-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.feed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.feed-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: 0.2s;
+}
+
+.feed-card:hover {
+  transform: scale(1.02);
+}
+
+.feed-descricao {
+  color: #555;
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.feed-autor {
+  font-size: 13px;
+  color: #777;
+}
+
+.feed-btn {
+  background-color: #6a4df5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.feed-btn:hover {
+  background-color: #5a3de0;
+}

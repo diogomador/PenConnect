@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Cadastro from "./pages/Cadastro";
 import Escrever from "./pages/Escrever";
+import Feed from "./pages/Feed";
+import ObraDetalhes from "./pages/ObraDetalhes";
 
 export default function App() {
   return (
@@ -15,6 +17,8 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/escrever" element={<Escrever />} />
+        <Route path="/feed" element={<Feed />} />
+        <Route path="/obras/:id" element={<ObraDetalhes />} />
       </Routes>
     </>
   );
