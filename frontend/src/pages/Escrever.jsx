@@ -65,7 +65,7 @@ export default function Escrever() {
 
   // ——— PUBLICAR OBRA ———
   async function publicarObra() {
-    if(!usuario){
+    if (!usuario) {
       alert("Faça login para publicar.");
       window.location.href = "/login";
       return;
@@ -76,29 +76,32 @@ export default function Escrever() {
       return;
     }
 
-    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch("http://localhost:8000/obras/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          titulo,
+          descricao,
+          conteudo: texto,
+          autor_id: usuario.id
+        })
+      });
 
-    const response = await fetch("http://localhost:8000/obras/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token
-      },
-      body: JSON.stringify({
-        titulo,
-        descricao,
-        conteudo: texto
-      })
-    });
+      const data = await response.json();
 
-    const data = await response.json();
-
-    if (response.ok) {
-      alert("Obra publicada com sucesso!");
-      localStorage.removeItem("rascunho");
-      window.location.href = "/"; // vai para homepage ou página da obra
-    } else {
-      alert(data.detail || "Erro ao publicar.");
+      if (response.ok) {
+        alert(`${data.mensagem}\nTítulo: ${data.obra.titulo}`);
+        localStorage.removeItem("rascunho");
+        window.location.href = "/";
+      } else {
+        alert(data.detail || "Erro ao publicar.");
+      }
+    } catch (error) {
+      alert("Erro ao conectar com o servidor.");
+      console.error(error);
     }
   }
 
@@ -106,8 +109,18 @@ export default function Escrever() {
     <div className="escrever-container">
       <h2>Escrever História</h2>
 
-      <input type="text" placeholder="Título" value={titulo} onChange={e => setTitulo(e.target.value)} />
-      <input type="text" placeholder="Descrição" value={descricao} onChange={e => setDescricao(e.target.value)} />
+      <input
+        type="text"
+        placeholder="Título"
+        value={titulo}
+        onChange={(e) => setTitulo(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Descrição"
+        value={descricao}
+        onChange={(e) => setDescricao(e.target.value)}
+      />
 
       <input type="file" accept=".txt,.docx,.pdf" onChange={handleArquivo} />
 

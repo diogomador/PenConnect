@@ -1,9 +1,11 @@
-from fastapi import FastAPI, HTTPException, Depends, Body
+from fastapi import FastAPI, HTTPException, Depends, Body, status
 from typing import List
 from sqlmodel import SQLModel, create_engine, Session, select
-from models import Usuario, Obra, Comentario, Avaliacao
+from models import Usuario, Obra, ObraCreate, Comentario, Avaliacao
 from fastapi.middleware.cors import CORSMiddleware
 import os
+
+# ------------------ BANCO DE DADOS ------------------
 
 # Criar pasta do banco se não existir
 os.makedirs("database", exist_ok=True)
@@ -21,11 +23,14 @@ def get_session():
     with Session(engine) as session:
         yield session
 
+# ------------------ APP ------------------
+
 app = FastAPI()
 
 # Criar banco ao iniciar
 create_db_and_tables()
 
+# Configurar CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -71,12 +76,23 @@ def login(data: dict = Body(...), session: Session = Depends(get_session)):
 def listar_obras(session: Session = Depends(get_session)):
     return session.exec(select(Obra)).all()
 
-@app.post("/obras/", response_model=Obra)
-def criar_obra(obra: Obra, session: Session = Depends(get_session)):
-    session.add(obra)
+@app.post("/obras/", status_code=status.HTTP_201_CREATED)
+def publicar_obra(obra_data: ObraCreate, session: Session = Depends(get_session)):
+    """
+    Endpoint de publicação de obra.
+    Por enquanto, usa autor_id fixo (1) só pra testar a publicação.
+    Depois a gente liga com o login.
+    """
+    nova_obra = Obra(
+        titulo=obra_data.titulo,
+        descricao=obra_data.descricao,
+        conteudo=obra_data.conteudo,
+        autor_id=1  # temporário até integrar com o login
+    )
+    session.add(nova_obra)
     session.commit()
-    session.refresh(obra)
-    return obra
+    session.refresh(nova_obra)
+    return {"mensagem": "Obra publicada com sucesso!", "obra": nova_obra}
 
 @app.get("/obras/{obra_id}/", response_model=Obra)
 def obter_obra(obra_id: int, session: Session = Depends(get_session)):
