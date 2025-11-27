@@ -25,6 +25,7 @@ class ObraCreate(SQLModel):
     titulo: str
     descricao: str
     conteudo: str
+    autor_id: int
 
 class ObraUpdate(SQLModel):
     titulo: Optional[str] = None

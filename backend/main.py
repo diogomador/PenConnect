@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends, Body, status
 from typing import List
 from sqlmodel import SQLModel, create_engine, Session, select
+from sqlalchemy.orm import selectinload
 from models import Usuario, Obra, ObraCreate, Comentario, Avaliacao
 from fastapi.middleware.cors import CORSMiddleware
 import os
@@ -72,34 +73,63 @@ def login(data: dict = Body(...), session: Session = Depends(get_session)):
 
 # ------------------ OBRAS ------------------
 
-@app.get("/obras/", response_model=List[Obra])
+@app.get("/obras/")
 def listar_obras(session: Session = Depends(get_session)):
-    return session.exec(select(Obra)).all()
+    statement = select(Obra, Usuario.nome).join(Usuario)
+    results = session.exec(statement).all()
 
-@app.post("/obras/", status_code=status.HTTP_201_CREATED)
+    return [
+        {
+            "id": obra.id,
+            "titulo": obra.titulo,
+            "descricao": obra.descricao,
+            "autor": autor
+        }
+        for obra, autor in results
+    ]
+
+@app.post("/obras/")
 def publicar_obra(obra_data: ObraCreate, session: Session = Depends(get_session)):
-    """
-    Endpoint de publicação de obra.
-    Por enquanto, usa autor_id fixo (1) só pra testar a publicação.
-    Depois a gente liga com o login.
-    """
+    autor = session.get(Usuario, obra_data.autor_id)
+
+    if not autor:
+        raise HTTPException(status_code=404, detail="Autor não encontrado")
+
     nova_obra = Obra(
         titulo=obra_data.titulo,
         descricao=obra_data.descricao,
         conteudo=obra_data.conteudo,
-        autor_id=1  # temporário até integrar com o login
+        autor_id=autor.id
     )
+
     session.add(nova_obra)
     session.commit()
     session.refresh(nova_obra)
-    return {"mensagem": "Obra publicada com sucesso!", "obra": nova_obra}
 
-@app.get("/obras/{obra_id}/", response_model=Obra)
+    return nova_obra
+
+@app.get("/obras/{obra_id}/")
 def obter_obra(obra_id: int, session: Session = Depends(get_session)):
-    obra = session.get(Obra, obra_id)
-    if not obra:
+    statement = (
+        select(Obra, Usuario.nome)
+        .join(Usuario, Usuario.id == Obra.autor_id)
+        .where(Obra.id == obra_id)
+    )
+
+    result = session.exec(statement).first()
+
+    if not result:
         raise HTTPException(status_code=404, detail="Obra não encontrada")
-    return obra
+
+    obra, autor_nome = result
+
+    return {
+        "id": obra.id,
+        "titulo": obra.titulo,
+        "descricao": obra.descricao,
+        "conteudo": obra.conteudo,
+        "autor": autor_nome
+    }
 
 @app.put("/obras/{obra_id}/", response_model=Obra)
 def atualizar_obra(obra_id: int, obra: Obra, session: Session = Depends(get_session)):

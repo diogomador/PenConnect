@@ -22,7 +22,7 @@ export default function ObraDetalhes() {
       <div className="obra-container">
         <h1 className="obra-titulo">{obra.titulo}</h1>
         <p className="obra-descricao">{obra.descricao}</p>
-        <p className="obra-autor">Autor ID: {obra.autor_id}</p>
+        <p className="obra-autor">Autor: {obra.autor}</p>
         <div className="obra-conteudo">{obra.conteudo}</div>
 
         <button className="voltar-btn" onClick={() => window.history.back()}>
