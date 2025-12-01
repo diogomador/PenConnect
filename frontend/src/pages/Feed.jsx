@@ -36,7 +36,7 @@ export default function Feed() {
             <div key={obra.id} className="feed-card">
               <h3>{obra.titulo}</h3>
               <p className="feed-descricao">{obra.descricao}</p>
-              <p className="feed-autor">Autor: {obra.autor_id}</p>
+              <p className="feed-autor">Autor: {obra.autor}</p>
 
               <Link to={`/obras/${obra.id}`} className="feed-btn">
                 Ler mais

@@ -59,3 +59,128 @@
   background: linear-gradient(135deg, #5a52e0, #7a73f0);
   transform: scale(1.05);
 }
+
+/* ---------- AVALIAÇÕES ---------- */
+
+h3 {
+  margin-top: 40px;
+  color: #333;
+  font-size: 1.4rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 8px;
+}
+
+.lista-avaliacoes {
+  margin-top: 15px;
+}
+
+.avaliacao-item {
+  background: #f9f9ff;
+  border-left: 4px solid #6c63ff;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+/* Média */
+.media-avaliacao {
+  font-size: 1rem;
+  margin-top: 10px;
+  color: #555;
+}
+
+.estrelas {
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.estrela {
+  opacity: 0.3;
+}
+
+.estrela.ativa {
+  opacity: 1;
+}
+
+.btn-excluir {
+  background: #d55050;
+  margin-top: 8px;
+}
+
+.btn-excluir:hover {
+  background: #b83b3b;
+}
+
+/* Campo nota */
+input[type="number"] {
+  width: 120px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  margin-right: 8px;
+}
+
+/* Botão Avaliar */
+button {
+  background: linear-gradient(135deg, #6c63ff, #8a84ff);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #5a52e0, #7a73f0);
+}
+
+/* ---------- COMENTÁRIOS ---------- */
+
+.comentarios-lista {
+  margin-top: 20px;
+}
+
+.comentario-item {
+  background: #f4f4f8;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  position: relative;
+}
+
+.comentario-item strong {
+  color: #6c63ff;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.autor-obra {
+  color: #e67e22;
+  font-weight: bold;
+}
+
+/* Campo comentário */
+textarea {
+  width: 100%;
+  min-height: 90px;
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+/* Mensagens de vazio */
+p {
+  color: #666;
+  font-size: 0.95rem;
+}
