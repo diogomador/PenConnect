@@ -1,0 +1,46 @@
+.perfil-page {
+  max-width: 700px;
+  margin: 50px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 15px 25px rgba(0,0,0,0.08);
+}
+
+.perfil-page h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.dados input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #6c63ff;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.minhas-obras {
+  margin-top: 20px;
+}
+
+.obra-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.btn-danger {
+  background: crimson;
+  width: 100%;
+  margin-top: 20px;
+}

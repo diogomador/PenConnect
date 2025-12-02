@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException, Depends, Body, status
 from typing import List
 from sqlmodel import SQLModel, create_engine, Session, select
 from sqlalchemy.orm import selectinload
+from pydantic import BaseModel
 from models import Usuario, Obra, ObraCreate, Comentario, Avaliacao
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -41,11 +42,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+class UsuarioUpdate(BaseModel):
+    nome: str
+    email: str
+    senha: str
+
 # ------------------ USUÁRIOS ------------------
 
 @app.get("/usuarios/", response_model=List[Usuario])
 def listar_usuarios(session: Session = Depends(get_session)):
     return session.exec(select(Usuario)).all()
+
+@app.get("/usuarios/{usuario_id}/obras/")
+def obras_do_usuario(usuario_id: int, session: Session = Depends(get_session)):
+    return session.exec(
+        select(Obra).where(Obra.autor_id == usuario_id)
+    ).all()
 
 @app.post("/usuarios/", response_model=Usuario)
 def criar_usuario(usuario: Usuario, session: Session = Depends(get_session)):
@@ -53,6 +65,35 @@ def criar_usuario(usuario: Usuario, session: Session = Depends(get_session)):
     session.commit()
     session.refresh(usuario)
     return usuario
+
+@app.put("/usuarios/{usuario_id}/")
+def atualizar_usuario(usuario_id: int, data: UsuarioUpdate, session: Session = Depends(get_session)):
+    usuario = session.get(Usuario, usuario_id)
+
+    if not usuario:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+
+    usuario.nome = data.nome
+    usuario.email = data.email
+    usuario.senha = data.senha
+
+    session.commit()
+    session.refresh(usuario)
+
+    return {"message": "Dados atualizados!", "usuario": usuario}
+
+@app.delete("/usuarios/{usuario_id}/")
+def deletar_usuario(usuario_id: int, session: Session = Depends(get_session)):
+
+    usuario = session.get(Usuario, usuario_id)
+
+    if not usuario:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+
+    session.delete(usuario)
+    session.commit()
+
+    return {"message": "Conta excluída com sucesso"}
 
 # ------------------ LOGIN ------------------
 
@@ -143,25 +184,51 @@ def obter_obra(obra_id: int, session: Session = Depends(get_session)):
         "autor": autor_nome
     }
 
-@app.put("/obras/{obra_id}/", response_model=Obra)
-def atualizar_obra(obra_id: int, obra: Obra, session: Session = Depends(get_session)):
-    db_obra = session.get(Obra, obra_id)
-    if not db_obra:
+@app.put("/obras/{obra_id}/")
+def atualizar_obra(
+    obra_id: int,
+    data: dict,
+    session: Session = Depends(get_session)
+):
+
+    obra = session.get(Obra, obra_id)
+
+    if not obra:
         raise HTTPException(status_code=404, detail="Obra não encontrada")
-    obra.id = obra_id
-    session.merge(obra)
+
+    autor = data.get("autor")
+
+    if obra.autor_id != autor:
+        raise HTTPException(status_code=403, detail="Você não pode editar essa obra")
+
+    obra.titulo = data.get("titulo", obra.titulo)
+    obra.descricao = data.get("descricao", obra.descricao)
+    obra.conteudo = data.get("conteudo", obra.conteudo)
+
     session.commit()
     session.refresh(obra)
-    return obra
 
-@app.delete("/obras/{obra_id}/", response_model=Obra)
-def deletar_obra(obra_id: int, session: Session = Depends(get_session)):
-    db_obra = session.get(Obra, obra_id)
-    if not db_obra:
+    return {"message": "Obra atualizada com sucesso", "obra": obra}
+
+@app.delete("/obras/{obra_id}/")
+def deletar_obra(
+    obra_id: int,
+    data: dict = Body(...),
+    session: Session = Depends(get_session)
+):
+
+    obra = session.get(Obra, obra_id)
+
+    if not obra:
         raise HTTPException(status_code=404, detail="Obra não encontrada")
-    session.delete(db_obra)
+
+    if obra.autor_id != data.get("autor_id"):
+        raise HTTPException(status_code=403, detail="Você não pode apagar essa obra")
+
+    session.delete(obra)
     session.commit()
-    return db_obra
+
+    return {"message": "Obra excluída com sucesso"}
 
 @app.get("/obras/em-alta")
 def obras_em_alta(session: Session = Depends(get_session)):

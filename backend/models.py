@@ -8,8 +8,10 @@ class Usuario(SQLModel, table=True):
     senha: str
     bio: Optional[str] = None
 
-    obras: List["Obra"] = Relationship(back_populates="autor")
-
+    obras: List["Obra"] = Relationship(
+        back_populates="autor",
+        sa_relationship_kwargs={"cascade": "all, delete"}
+    )
 
 class Obra(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -19,6 +21,14 @@ class Obra(SQLModel, table=True):
 
     autor_id: int = Field(foreign_key="usuario.id")
     autor: Optional[Usuario] = Relationship(back_populates="obras")
+
+    comentarios: List["Comentario"] = Relationship(
+        sa_relationship_kwargs={"cascade": "all, delete"}
+    )
+
+    avaliacoes: List["Avaliacao"] = Relationship(
+        sa_relationship_kwargs={"cascade": "all, delete"}
+    )
 
 # Schemas para criação/edição
 class ObraCreate(SQLModel):
@@ -39,9 +49,13 @@ class Comentario(SQLModel, table=True):
     autor: str
     texto: str
 
+    obra: Optional[Obra] = Relationship()
 
 class Avaliacao(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     obra_id: int = Field(foreign_key="obra.id")
     avaliador: str
     nota: int = Field(ge=0, le=10)
+
+    obra: Optional[Obra] = Relationship()
+
