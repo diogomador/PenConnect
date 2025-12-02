@@ -28,40 +28,75 @@ body {
 
 /* HISTÓRIAS EM ALTA */
 .stories {
-  padding: 40px 80px;
+  padding: 60px 80px;
+  background-color: #f8eedc;
 }
 
 .stories h3 {
-  font-size: 28px;
-  border-bottom: 2px solid #000;
-  padding-bottom: 6px;
+  font-size: 32px;
+  color: #5b3716;
+  border-bottom: 2px solid #5b3716;
+  padding-bottom: 8px;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
 }
 
 .stories-area {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  align-items: stretch;
+  gap: 50px;
 }
 
+/* CARDS */
 .cards {
   display: flex;
-  gap: 25px;
+  gap: 30px;
 }
 
 .card {
-  width: 150px;
-  height: 150px;
-  background: #92d6e6;
+  width: 180px;
+  height: 190px;
+  background: linear-gradient(145deg, #9bdbe8, #7fc8d8);
+  border-radius: 14px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
-  font-weight: bold;
+  font-weight: 700;
+  color: #08323c;
+  text-align: center;
+  padding: 15px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  transition: all 0.3s ease;
+  position: relative;
 }
 
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+  background: linear-gradient(145deg, #8fd4e3, #6ebdce);
+}
+
+/* MÉDIA */
+.card span {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #045563;
+}
+
+/* TEXTO LATERAL */
 .side-text {
-  width: 350px;
-  font-size: 19px;
+  width: 380px;
+  background-color: #f4dfb5;
+  padding: 25px 28px;
+  border-radius: 14px;
+  font-size: 18px;
   text-align: center;
   color: #5b3716;
+  line-height: 1.6;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  height: fit-content;
 }

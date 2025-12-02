@@ -1,11 +1,21 @@
-import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import './Home.css';
 import maquinaDeEscrever from '../assets/img/maquina-de-escrever.png';
 
 export default function Home() {
   const { usuario } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const [obrasEmAlta, setObrasEmAlta] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/obras/em-alta")
+      .then(res => res.json())
+      .then(data => setObrasEmAlta(data))
+      .catch(err => console.error("Erro ao buscar obras em alta:", err));
+  }, []);
 
   return (
     <div className="home-container">
@@ -30,15 +40,29 @@ export default function Home() {
 
         <div className="stories-area">
           <div className="cards">
-            <div className="card">Exemplo 1</div>
-            <div className="card">Exemplo 2</div>
-            <div className="card">Exemplo 3</div>
+
+            {obrasEmAlta.length === 0 && (
+              <p>Nenhuma obra avaliada ainda.</p>
+            )}
+
+            {obrasEmAlta.map(obra => (
+              <div
+                key={obra.id}
+                className="card"
+                onClick={() => navigate(`/obras/${obra.id}`)}
+              >
+                <h4>{obra.titulo}</h4>
+                <p className="autor">{obra.autor}</p>
+                <span className="nota">⭐ {obra.media}</span>
+              </div>
+            ))}
+
           </div>
 
           {usuario ? (
             <p className="side-text">
               Continue sua jornada literária,<br />
-              {usuario.nome}!<br /><br />
+              <strong>{usuario.nome}</strong>!<br /><br />
               Explore novas histórias e comece<br />
               a escrever a sua própria!
             </p>

@@ -163,6 +163,38 @@ def deletar_obra(obra_id: int, session: Session = Depends(get_session)):
     session.commit()
     return db_obra
 
+@app.get("/obras/em-alta")
+def obras_em_alta(session: Session = Depends(get_session)):
+    obras = session.exec(
+        select(Obra, Usuario.nome)
+        .join(Usuario, Usuario.id == Obra.autor_id)
+    ).all()
+
+    resultado = []
+
+    for obra, autor in obras:
+        avaliacoes = session.exec(
+            select(Avaliacao).where(Avaliacao.obra_id == obra.id)
+        ).all()
+
+        if not avaliacoes:
+            continue   # ignora obras sem avaliação
+
+        media = sum(a.nota for a in avaliacoes) / len(avaliacoes)
+
+        resultado.append({
+            "id": obra.id,
+            "titulo": obra.titulo,
+            "autor": autor,
+            "media": round(media, 1)
+        })
+
+    # Ordenar do maior para o menor
+    resultado.sort(key=lambda x: x["media"], reverse=True)
+
+    # Retornar só as 3 melhores (ou mude se quiser mais)
+    return resultado[:3]
+
 # ------------------ COMENTÁRIOS ------------------
 
 @app.get("/obras/{obra_id}/comentarios/", response_model=List[Comentario])
