@@ -77,7 +77,7 @@ export default function Escrever() {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/obras/", {
+      const response = await fetch("http://localhost:8081/obras/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

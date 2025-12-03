@@ -9,7 +9,7 @@ export default function Feed() {
   useEffect(() => {
     async function fetchObras() {
       try {
-        const response = await fetch("http://localhost:8000/obras/");
+        const response = await fetch("http://localhost:8081/obras/");
         const data = await response.json();
         setObras(data);
       } catch (error) {

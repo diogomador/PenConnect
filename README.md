@@ -44,7 +44,7 @@ O projeto foca em entusiastas do mundo literário, dando atenção principalment
 
 2. Execute a API:
    ```
-   uvicorn main:app --reload
+   uvicorn main:app --reload --port 8081
    ```
 
 3. Execute o Frontend:
@@ -52,4 +52,4 @@ O projeto foca em entusiastas do mundo literário, dando atenção principalment
    npm run dev
    ```
 
-Acesse a documentação interativa em [http://localhost:8000/docs](http:localhost:8000/docs)
+Acesse a documentação interativa em [http://localhost:8081/docs](http:localhost:8081/docs)

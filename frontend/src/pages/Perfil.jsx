@@ -16,13 +16,13 @@ export default function Perfil() {
   }, []);
 
   async function fetchObras() {
-    const res = await fetch(`http://localhost:8000/usuarios/${usuario.id}/obras/`);
+    const res = await fetch(`http://localhost:8081/usuarios/${usuario.id}/obras/`);
     const data = await res.json();
     setObras(data);
   }
 
   async function salvar() {
-    const response = await fetch(`http://localhost:8000/usuarios/${usuario.id}/`, {
+    const response = await fetch(`http://localhost:8081/usuarios/${usuario.id}/`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nome, email, senha })
@@ -38,7 +38,7 @@ export default function Perfil() {
 
     if (!confirm) return;
 
-    await fetch(`http://localhost:8000/usuarios/${usuario.id}/`, {
+    await fetch(`http://localhost:8081/usuarios/${usuario.id}/`, {
         method: "DELETE"
     });
 
@@ -48,7 +48,7 @@ export default function Perfil() {
     }
 
     async function editarObra(id, dados) {
-    await fetch(`http://localhost:8000/obras/${id}/`, {
+    await fetch(`http://localhost:8081/obras/${id}/`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -61,7 +61,7 @@ export default function Perfil() {
     }
 
     async function excluirObra(id) {
-    await fetch(`http://localhost:8000/obras/${id}/`, {
+    await fetch(`http://localhost:8081/obras/${id}/`, {
         method: "DELETE",
         headers: {
         "Content-Type": "application/json"

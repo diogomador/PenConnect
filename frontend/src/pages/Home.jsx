@@ -11,7 +11,7 @@ export default function Home() {
   const [obrasEmAlta, setObrasEmAlta] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/obras/em-alta")
+    fetch("http://localhost:8081/obras/em-alta")
       .then(res => res.json())
       .then(data => setObrasEmAlta(data))
       .catch(err => console.error("Erro ao buscar obras em alta:", err));

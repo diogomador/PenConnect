@@ -29,7 +29,7 @@ export default function ObraDetalhes() {
 
   async function fetchObra() {
     try {
-      const response = await fetch(`http://localhost:8000/obras/${id}/`);
+      const response = await fetch(`http://localhost:8081/obras/${id}/`);
       const data = await response.json();
       setObra(data);
     } catch (err) {
@@ -39,7 +39,7 @@ export default function ObraDetalhes() {
 
   async function fetchComentarios() {
     try {
-      const response = await fetch(`http://localhost:8000/obras/${id}/comentarios/`);
+      const response = await fetch(`http://localhost:8081/obras/${id}/comentarios/`);
       const data = await response.json();
       setComentarios(data);
     } catch (err) {
@@ -49,7 +49,7 @@ export default function ObraDetalhes() {
 
   async function fetchAvaliacoes() {
     try {
-      const response = await fetch(`http://localhost:8000/obras/${id}/avaliacoes/`);
+      const response = await fetch(`http://localhost:8081/obras/${id}/avaliacoes/`);
       const data = await response.json();
       setAvaliacoes(data);
     } catch (err) {
@@ -59,7 +59,7 @@ export default function ObraDetalhes() {
 
   async function fetchMedia() {
     try {
-      const r = await fetch(`http://localhost:8000/obras/${id}/media/`);
+      const r = await fetch(`http://localhost:8081/obras/${id}/media/`);
       const d = await r.json();
       setMedia(d.media ?? "Sem avaliações");
     } catch (err) {
@@ -76,7 +76,7 @@ export default function ObraDetalhes() {
 
     setLoadingComentario(true);
     try {
-      const response = await fetch("http://localhost:8000/comentarios/", {
+      const response = await fetch("http://localhost:8081/comentarios/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -115,7 +115,7 @@ export default function ObraDetalhes() {
 
     setLoadingAvaliacao(true);
     try {
-      const response = await fetch("http://localhost:8000/avaliacoes/", {
+      const response = await fetch("http://localhost:8081/avaliacoes/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -147,7 +147,7 @@ export default function ObraDetalhes() {
 
     setLoadingDelete(true);
     try {
-      const response = await fetch(`http://localhost:8000/comentarios/${comentarioId}/`, {
+      const response = await fetch(`http://localhost:8081/comentarios/${comentarioId}/`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(usuario.nome)
