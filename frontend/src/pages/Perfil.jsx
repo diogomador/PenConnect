@@ -9,6 +9,9 @@ export default function Perfil() {
   const [email, setEmail] = useState(usuario.email);
   const [senha, setSenha] = useState(usuario.senha);
 
+  const [mostrarSenha, setMostrarSenha] = useState(false);
+
+
   const [obras, setObras] = useState([]);
 
   useEffect(() => {
@@ -83,7 +86,22 @@ export default function Perfil() {
       <div className="dados">
         <input value={nome} onChange={e => setNome(e.target.value)} />
         <input value={email} onChange={e => setEmail(e.target.value)} />
-        <input value={senha} onChange={e => setSenha(e.target.value)} />
+        <div className="senha-box">
+          <input
+            type={mostrarSenha ? "text" : "password"}
+            value={senha}
+            onChange={e => setSenha(e.target.value)}
+            placeholder="Senha"
+          />
+
+          <button
+            type="button"
+            className="btn-ver-senha"
+            onClick={() => setMostrarSenha(!mostrarSenha)}
+          >
+            {mostrarSenha ? "🙈" : "👁"}
+          </button>
+        </div>
 
         <button onClick={salvar}>Salvar</button>
       </div>
