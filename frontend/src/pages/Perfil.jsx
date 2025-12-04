@@ -101,7 +101,12 @@ export default function Perfil() {
             onClick={() => setMostrarSenha(!mostrarSenha)}
           >
             
-            {mostrarSenha ? <img src={show}/> : "👁"}
+            <img
+              src={show}
+              alt="Mostrar senha"
+              style={{ filter: mostrarSenha ? "none" : "grayscale(100%)", opacity: mostrarSenha ? 1 : 0.6 }}
+            />
+
           </button>
         </div>
 
