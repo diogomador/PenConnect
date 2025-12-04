@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import "./Perfil.css";
+import show from '../assets/img/show.png';
 
 export default function Perfil() {
   const { usuario, setUsuario } = useContext(AuthContext);
@@ -99,7 +100,8 @@ export default function Perfil() {
             className="btn-ver-senha"
             onClick={() => setMostrarSenha(!mostrarSenha)}
           >
-            {mostrarSenha ? "🙈" : "👁"}
+            
+            {mostrarSenha ? <img src={show}/> : "👁"}
           </button>
         </div>
 
