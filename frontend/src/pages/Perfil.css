@@ -14,8 +14,9 @@
 
 .dados input {
   width: 100%;
-  margin-bottom: 10px;
-  padding: 8px;
+  height: 40px;
+  margin-bottom: 12px;
+  padding: 8px 10px;
   border-radius: 6px;
   border: 1px solid #ccc;
 }
@@ -46,22 +47,27 @@ button {
 }
 
 .senha-box {
-  position: relative;
   width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .senha-box input {
   width: 100%;
-  padding-right: 45px;
+  height: 40px;
+  padding-right: 40px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
 .btn-ver-senha {
   position: absolute;
   right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
+  background: none;
   border: none;
-  background: transparent;
-  font-size: 18px;
+  font-size: 16px;
   cursor: pointer;
+  opacity: 1; /* FORÇA APARECER */
+  display: block;
 }
