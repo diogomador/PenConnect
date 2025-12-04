@@ -10,7 +10,7 @@
 
 ## 2. Descrição Detalhada do Projeto
 ### O que é projeto?
-Devido uma grande quantidade de indivíduos que se interessam pelo mundo da literatura, que têm vontade de escrevers suas próprias obras, propomos a criação de uma rede social voltada para escritores, onde estes publicarão suas obras. Outros usuários poderão ler e avaliar - dando feedbacks, atribuindo notas e fazendo comentários públicos.
+Devido uma grande quantidade de indivíduos que se interessam pelo mundo da literatura, que têm vontade de escrever suas próprias obras, propomos a criação de uma rede social voltada para escritores, onde estes publicarão suas obras. Outros usuários poderão ler e avaliar - dando feedbacks, atribuindo notas e fazendo comentários públicos.
 ### 2.1 Funcionalidades Principais
 - <b>Funcionalidade 01:</b> Escrever ou fazer upload de textos (obras).
 - <b>Funcionalidade 02:</b> Publicar textos para outros usuários.
