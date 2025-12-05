@@ -10,6 +10,9 @@ export default function Escrever() {
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");
 
+  const [mensagem, setMensagem] = useState("");
+  const [erro, setErro] = useState("");
+
   const { usuario } = useContext(AuthContext);
 
   // ——— Upload TXT / DOCX / PDF ———
@@ -65,14 +68,16 @@ export default function Escrever() {
 
   // ——— PUBLICAR OBRA ———
   async function publicarObra() {
+    setMensagem("");
+    setErro("");
+
     if (!usuario) {
-      alert("Faça login para publicar.");
-      window.location.href = "/login";
+      setErro("Você precisa estar logado para publicar.");
       return;
     }
 
     if (!titulo || !descricao || !texto) {
-      alert("Preencha título, descrição e conteúdo!");
+      setErro("Preencha título, descrição e conteúdo.");
       return;
     }
 
@@ -93,21 +98,32 @@ export default function Escrever() {
       const data = await response.json();
 
       if (response.ok) {
-        alert(`${data.mensagem}\nTítulo: ${data.obra.titulo}`);
+        setMensagem("Obra publicada com sucesso!");
+
+        // limpar campos
+        setTitulo("");
+        setDescricao("");
+        setTexto("");
         localStorage.removeItem("rascunho");
-        window.location.href = "/";
+
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1000);
       } else {
-        alert(data.detail || "Erro ao publicar.");
+        setErro(data.detail || "Erro ao publicar a obra.");
       }
     } catch (error) {
-      alert("Erro ao conectar com o servidor.");
       console.error(error);
+      setErro("Erro ao conectar com o servidor.");
     }
   }
 
   return (
     <div className="escrever-container">
       <h2>Escrever História</h2>
+
+      {mensagem && <p className="sucesso-msg">{mensagem}</p>}
+      {erro && <p className="erro-msg">{erro}</p>}
 
       <input
         type="text"
