@@ -19,6 +19,10 @@ export default function ObraDetalhes() {
   const [loadingAvaliacao, setLoadingAvaliacao] = useState(false);
   const [loadingDelete, setLoadingDelete] = useState(false);
 
+  // Mensagens de feedback
+  const [mensagem, setMensagem] = useState("");
+  const [erro, setErro] = useState("");
+
   useEffect(() => {
     fetchObra();
     fetchComentarios();
@@ -27,13 +31,18 @@ export default function ObraDetalhes() {
     // eslint-disable-next-line
   }, [id]);
 
+  function limparMensagens() {
+    setMensagem("");
+    setErro("");
+  }
+
   async function fetchObra() {
     try {
       const response = await fetch(`http://localhost:8081/obras/${id}/`);
       const data = await response.json();
       setObra(data);
     } catch (err) {
-      console.error("Erro ao buscar obra:", err);
+      setErro("Erro ao carregar a obra.");
     }
   }
 
@@ -43,7 +52,7 @@ export default function ObraDetalhes() {
       const data = await response.json();
       setComentarios(data);
     } catch (err) {
-      console.error("Erro ao buscar comentários:", err);
+      setErro("Erro ao carregar comentários.");
     }
   }
 
@@ -53,7 +62,7 @@ export default function ObraDetalhes() {
       const data = await response.json();
       setAvaliacoes(data);
     } catch (err) {
-      console.error("Erro ao buscar avaliações:", err);
+      setErro("Erro ao carregar avaliações.");
     }
   }
 
@@ -63,18 +72,21 @@ export default function ObraDetalhes() {
       const d = await r.json();
       setMedia(d.media ?? "Sem avaliações");
     } catch (err) {
-      console.error("Erro ao buscar média:", err);
+      setErro("Erro ao carregar média.");
     }
   }
 
   async function enviarComentario() {
+    limparMensagens();
+
     if (!usuario) {
-      alert("Você precisa estar logado para comentar.");
+      setErro("Você precisa estar logado para comentar.");
       return;
     }
     if (!novoComentario.trim()) return;
 
     setLoadingComentario(true);
+
     try {
       const response = await fetch("http://localhost:8081/comentarios/", {
         method: "POST",
@@ -92,28 +104,32 @@ export default function ObraDetalhes() {
       }
 
       setNovoComentario("");
+      setMensagem("Comentário enviado com sucesso!");
+
       await fetchComentarios();
     } catch (err) {
-      console.error(err);
-      alert("Erro ao enviar comentário.");
+      setErro("Erro ao enviar comentário.");
     } finally {
       setLoadingComentario(false);
     }
   }
 
   async function enviarAvaliacao() {
+    limparMensagens();
+
     if (!usuario) {
-      alert("Você precisa estar logado para avaliar.");
+      setErro("Você precisa estar logado para avaliar.");
       return;
     }
 
     const n = Number(nota);
     if (Number.isNaN(n) || n < 0 || n > 10) {
-      alert("Nota inválida (0-10)");
+      setErro("A nota deve ser entre 0 e 10.");
       return;
     }
 
     setLoadingAvaliacao(true);
+
     try {
       const response = await fetch("http://localhost:8081/avaliacoes/", {
         method: "POST",
@@ -130,38 +146,48 @@ export default function ObraDetalhes() {
         throw new Error(err || "Erro ao enviar avaliação");
       }
 
-      // atualiza lista e média
+      setMensagem("Avaliação enviada!");
+
       await fetchAvaliacoes();
       await fetchMedia();
     } catch (err) {
-      console.error(err);
-      alert("Erro ao enviar avaliação.");
+      setErro("Erro ao enviar avaliação.");
     } finally {
       setLoadingAvaliacao(false);
     }
   }
 
   async function deletarComentario(comentarioId) {
+    limparMensagens();
+
     if (!usuario) return;
-    if (!confirm("Deseja mesmo excluir este comentário?")) return;
+
+    // substitui o confirm por UI
+    if (!window.confirm("Tem certeza que deseja excluir este comentário?")) {
+      return;
+    }
 
     setLoadingDelete(true);
+
     try {
-      const response = await fetch(`http://localhost:8081/comentarios/${comentarioId}/`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(usuario.nome)
-      });
+      const response = await fetch(
+        `http://localhost:8081/comentarios/${comentarioId}/`,
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(usuario.nome)
+        }
+      );
 
       if (!response.ok) {
         const err = await response.text();
         throw new Error(err || "Erro ao deletar comentário");
       }
 
+      setMensagem("Comentário excluído.");
       await fetchComentarios();
     } catch (err) {
-      console.error(err);
-      alert("Erro ao excluir comentário.");
+      setErro("Erro ao excluir comentário.");
     } finally {
       setLoadingDelete(false);
     }
@@ -182,6 +208,10 @@ export default function ObraDetalhes() {
         <p className="obra-autor">Autor: {obra.autor}</p>
         <div className="obra-conteudo">{obra.conteudo}</div>
 
+        {/* MENSAGENS */}
+        {mensagem && <p className="sucesso-msg">{mensagem}</p>}
+        {erro && <p className="erro-msg">{erro}</p>}
+
         <hr />
 
         {/* AVALIAÇÕES */}
@@ -191,7 +221,6 @@ export default function ObraDetalhes() {
           Média: <strong>{calcularMediaLocal()}</strong> ⭐
         </p>
 
-        {/* LISTA DE AVALIAÇÕES */}
         <div className="lista-avaliacoes">
           {avaliacoes.length === 0 && <p>Ninguém avaliou ainda.</p>}
 
@@ -253,6 +282,7 @@ export default function ObraDetalhes() {
 
         <div className="comentarios-lista">
           {comentarios.length === 0 && <p>Nenhum comentário ainda.</p>}
+
           {comentarios.map((c) => (
             <div key={c.id} className="comentario-item">
               <strong className={c.autor === obra.autor ? "autor-obra" : ""}>
