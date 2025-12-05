@@ -25,6 +25,17 @@ export default function Home() {
         <div className="hero-text">
           <h2>Compartilhe suas histórias com o mundo</h2>
           <p>Acesse obras de outros autores<br/>para te inspirarem e divertirem!</p>
+          {usuario ? (
+            <button 
+              className="hero-btn"
+              onClick={() => navigate("/escrever")}
+            >Escrever</button>
+          ) : (
+            <button
+              className="hero-btn"
+              onClick={() => navigate("/cadastro")}
+            >Criar Conta</button>
+          )}
         </div>
 
         <img 

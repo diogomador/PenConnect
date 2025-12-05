@@ -26,6 +26,26 @@ body {
   width: 350px;
 }
 
+.hero-btn {
+  padding: 14px 28px;
+  width: 20vw;
+  border: none;
+  border-radius: 28px;
+  background: #5b3716;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.1s ease;
+  margin-left: 10px;
+}
+
+.hero-btn:hover {
+  background: #6d4120;
+  transform: translateY(-2px);
+}
+
 /* HISTÓRIAS EM ALTA */
 .stories {
   padding: 60px 80px;

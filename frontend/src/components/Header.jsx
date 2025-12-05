@@ -15,7 +15,6 @@ export default function Header() {
           <>
             <span className="user-name">Olá, {usuario.nome}</span>
             <Link to="/feed" className="menu-btn">Explorar Obras</Link>
-            <Link to="/escrever" className="menu-btn">Escrever</Link>
             <Link to="/perfil" className="menu-btn">Meu perfil</Link>
             <button className="menu-btn" onClick={logout}>Sair</button>
           </>
