@@ -43,3 +43,22 @@
     margin-bottom: 5px;
     font-weight: bold;
 }
+
+.erro-msg {
+  color: #ff4d4f;
+  background: #ffecec;
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+
+.sucesso-msg {
+  color: #2fa34f;
+  background: #e9ffe9;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  text-align: center;
+  border: 1px solid #9effb3;
+}

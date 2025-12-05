@@ -6,9 +6,11 @@ export default function Login() {
   const { setUsuario } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [erro, setErro] = useState("");
 
   async function handleLogin(e) {
     e.preventDefault();
+    setErro("");
 
     try {
       const response = await fetch("http://localhost:8081/login/", {
@@ -20,7 +22,7 @@ export default function Login() {
       const data = await response.json();
 
       if (!response.ok) {
-        alert(data.detail || "Erro ao fazer login");
+        setErro(data.detail || "Erro ao fazer login");
         return;
       }
 
@@ -28,17 +30,20 @@ export default function Login() {
       setUsuario(data);
       localStorage.setItem("usuario", JSON.stringify(data.usuario));
 
-      alert("Login realizado com sucesso!");
       window.location.href = "/";
+
     } catch (error) {
       console.error(error);
-      alert("Erro ao conectar ao servidor.");
+      setErro("Erro ao conectar ao servidor.");
     }
   }
 
   return (
     <div className="div-form">
       <h2>Login</h2>
+
+      {erro && <p className="erro-msg">{erro}</p>}
+
       <form className="form-cadastro" onSubmit={handleLogin}>
         
         <label className="label-cadastro">Email:</label>

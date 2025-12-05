@@ -5,9 +5,13 @@ export default function Cadastro() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [mensagem, setMensagem] = useState("");
+  const [erro, setErro] = useState(""); 
 
   async function handleCadastro(e) {
     e.preventDefault();
+    setMensagem("");
+    setErro("");
 
     const dados = {
       nome,
@@ -23,23 +27,31 @@ export default function Cadastro() {
       });
 
       if (response.ok) {
-        alert("Conta criada com sucesso!");
+        setMensagem("Conta criada com sucesso!");
         setNome("");
         setEmail("");
         setSenha("");
+
+        setTimeout(() => {
+          window.location.href = "/login ";
+        })
+
       } else {
-        alert("Erro ao criar conta");
+        setErro(data.detail || "Erro ao criar conta.");
       }
 
     } catch (error) {
       console.error("Erro na requisição:", error);
-      alert("Erro ao conectar com o servidor.");
+      setErro("Erro ao conectar com o servidor.");
     }
   }
 
   return (
     <div className="div-form">
       <h2>Criar Conta</h2>
+      {mensagem && <p className="sucesso-msg">{mensagem}</p>}
+      {erro && <p className="erro-msg">{erro}</p>}
+
       <form className="form-cadastro" onSubmit={handleCadastro}>
         
         <label className="label-cadastro">Nome:</label>
