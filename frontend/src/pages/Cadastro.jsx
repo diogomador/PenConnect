@@ -60,6 +60,7 @@ export default function Cadastro() {
           type="text" 
           placeholder="Nome" 
           value={nome}
+          required
           onChange={(e) => setNome(e.target.value)}
         />
 
@@ -69,6 +70,7 @@ export default function Cadastro() {
           type="email" 
           placeholder="Email" 
           value={email}
+          required
           onChange={(e) => setEmail(e.target.value)}
         />
 
@@ -78,6 +80,7 @@ export default function Cadastro() {
           type="password" 
           placeholder="Senha" 
           value={senha}
+          required
           onChange={(e) => setSenha(e.target.value)}
         />
         
