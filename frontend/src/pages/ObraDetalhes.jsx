@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import "./ObraDetalhes.css";
@@ -205,7 +206,13 @@ export default function ObraDetalhes() {
       <div className="obra-container">
         <h1 className="obra-titulo">{obra.titulo}</h1>
         <p className="obra-descricao">{obra.descricao}</p>
-        <p className="obra-autor">Autor: {obra.autor}</p>
+        <p className="obra-autor">
+          Autor:{" "}
+          <Link to={`/autor/${obra.autor}`} className="link-autor">
+            {obra.autor}
+          </Link>
+        </p>
+
         <div className="obra-conteudo">{obra.conteudo}</div>
 
         {/* MENSAGENS */}

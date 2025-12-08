@@ -6,6 +6,7 @@ import Cadastro from "./pages/Cadastro";
 import Escrever from "./pages/Escrever";
 import Feed from "./pages/Feed";
 import ObraDetalhes from "./pages/ObraDetalhes";
+import AutorPerfil from "./pages/AutorPerfil";
 import Perfil from "./pages/Perfil";
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/escrever" element={<Escrever />} />
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/feed" element={<Feed />} />
+        <Route path="/autor/:nome" element={<AutorPerfil />} />
         <Route path="/obras/:id" element={<ObraDetalhes />} />
       </Routes>
     </>

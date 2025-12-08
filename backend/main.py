@@ -53,6 +53,15 @@ class UsuarioUpdate(BaseModel):
 def listar_usuarios(session: Session = Depends(get_session)):
     return session.exec(select(Usuario)).all()
 
+@app.get("/usuarios/{usuario_id}")
+def obter_usuario(usuario_id: int, session: Session = Depends(get_session)):
+    usuario = session.get(Usuario, usuario_id)
+
+    if not usuario:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
+
+    return usuario
+
 @app.get("/usuarios/{usuario_id}/obras/")
 def obras_do_usuario(usuario_id: int, session: Session = Depends(get_session)):
     return session.exec(
@@ -94,6 +103,28 @@ def deletar_usuario(usuario_id: int, session: Session = Depends(get_session)):
     session.commit()
 
     return {"message": "Conta excluída com sucesso"}
+
+
+# ------------------ AUTOR ------------------
+
+@app.get("/autor/{nome}")
+def perfil_autor(nome: str, session: Session = Depends(get_session)):
+    usuario = session.exec(
+        select(Usuario).where(Usuario.nome == nome)
+    ).first()
+
+    if not usuario:
+        raise HTTPException(status_code=404, detail="Autor não encontrado")
+
+    obras = session.exec(
+        select(Obra).where(Obra.autor_id == usuario.id)
+    ).all()
+
+    return {
+        "id": usuario.id,
+        "nome": usuario.nome,
+        "obras": obras
+    }
 
 # ------------------ LOGIN ------------------
 
